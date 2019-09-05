@@ -1,26 +1,22 @@
 int max(int num1, int num2) {
   int result;
-
   if (num1 > num2) {
     result = num1;
   }
   else {
     result = num2;
   }
-
   return result;
 }
 
 int min(int num1, int num2) {
   int result;
-
   if (num1 > num2) {
     result = num2;
   }
   else {
     result = num1;
   }
-
   return result;
 }
 int between(int x, int range1, int range2) {
@@ -37,9 +33,9 @@ void squares(int size1, int x_offset, int y_offset, int size2) {
   //compute the max of size1 and (y_offset + size2).  Call this h
   int h = max(size1, (y_offset + size2));
   //count from 0 to h. Call the number you count with y
-  for (int y = 0; y <= h; y++) {
+  for (int y = 0; y < h; y++) {
     //count from 0 to w. Call the number you count with x
-    for (int x = 0; x <= w; x++) {
+    for (int x = 0; x < w; x++) {
       //check if  EITHER
       //    ((x is between x_offset  and x_offset +size2) AND
       //     y is equal to either y_offset OR y_offset + size2 - 1 )
