@@ -24,7 +24,7 @@ int min(int num1, int num2) {
   return result;
 }
 int between(int x, int range1, int range2) {
-  if (x > min(range1, range2) && x < max(range1, range2)) {
+  if (x >= min(range1, range2) && x < max(range1, range2)) {
     return 1;
   }
   else {
