@@ -3,6 +3,7 @@
 unsigned power(unsigned x, unsigned y);
 void run_check(unsigned x, unsigned y, unsigned ea) {
   if (power(x, y) != ea) {
+    printf("Failed\n");
     exit(EXIT_FAILURE);
   }
 }
@@ -15,6 +16,6 @@ int main(void) {
   run_check(10, 2, 100);
   run_check(2, 2, 4);
   run_check(4294967295, 1, 4294967295);
-
+  printf("Passed\n");
   exit(EXIT_SUCCESS);
 }
