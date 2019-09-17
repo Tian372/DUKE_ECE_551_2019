@@ -2,21 +2,17 @@
 #include <stdlib.h>
 
 int * arrayMax(int * array, int n) {
-  if (n != 0) {
-    int * P = array;
-    int * largestP = P;
-    int Vmax = *array;
-    for (int i = 0; i < n; i++) {
-      if (*P >= Vmax) {
-        largestP = P;
-      }
-      P += 1;
-    }
-    return largestP;
-  }
-  else {
+  if (n <= 0) {
     return NULL;
   }
+  int * largestP = array;
+  int largestIndex = 0;
+  for (int i = 0; i < n; i++) {
+    if (array[i] >= array[largestIndex]) {
+      largestIndex = i;
+    }
+  }
+  return largestP + largestIndex;
 }
 
 void doTest(int * array, int n) {
