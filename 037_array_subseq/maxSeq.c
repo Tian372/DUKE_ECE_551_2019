@@ -2,17 +2,18 @@
 #include <stdlib.h>
 
 size_t maxSeq(int * array, size_t n) {
-  size_t temp = 1;
+  size_t x;
+  size_t max = 0;
 
-  if (n > 0) {
-    for (size_t i = 0; i < n - 1; i++) {
-      if (array[i] < array[i + 1]) {
-        temp++;
+  x = 0;
+
+  for (size_t y = 1; y <= n; y++) {
+    if (y == n || array[y] <= array[y - 1]) {
+      if (y - x > max) {
+        max = y - x;
       }
-      else {
-        temp = 1;
-      }
+      x = y;
     }
   }
-  return temp;
+  return max;
 }
