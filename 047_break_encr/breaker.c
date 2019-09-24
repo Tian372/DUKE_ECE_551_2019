@@ -5,10 +5,11 @@
 int Max(int * arr, int num) {
   int maxIdx = 0;
 
-  for (int i = 1; i < num; i++)
-    if (arr[i] > arr[maxIdx])
+  for (int i = 1; i < num; i++) {
+    if (arr[i] > arr[maxIdx]) {
       maxIdx = i;
-
+    }
+  }
   return maxIdx;
 }
 int getkey(FILE * f) {
