@@ -29,14 +29,20 @@ int getkey(FILE * f) {
 int main(int argc, char * argv[]) {
   FILE * f;
   int key;
-  if (argc != 2)
+  if (argc != 2) {
     exit(EXIT_FAILURE);
+  }
+
   f = fopen(argv[1], "r");
-  if (f == NULL)
+
+  if (f == NULL) {
     exit(EXIT_FAILURE);
+  }
   key = getkey(f);
   printf("%d\n", key);
-  if (fclose(f) == 0)
+  if (fclose(f) == 0) {
     exit(EXIT_FAILURE);
+  }
+
   return EXIT_SUCCESS;
 }
