@@ -1,0 +1,10 @@
+0123456789
+1asdfghjkl
+2qwertyuio
+3zxcvbnm12
+4[];',./-'
+5asdfghjkl
+6`12345678
+7zxcvbnm,.
+8asdfghjkl
+9asdfghjkl
