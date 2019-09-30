@@ -1,0 +1,12 @@
+Grading at 09/30/2019:04:12:44.338479
+For commit ID 921cd6989f0d3ee78e1a51ca7558dd8171e61d5d
+Grading at Mon Sep 30 00:12:43 EDT 2019
+[32mfound function state_t  parseLine(const char * line)[0m
+[32mfound function unsigned int countElectoralVotes(state_t * stateData, uint64_t * voteCounts, size_t   nStates)[0m
+[32mfound function void printRecounts(state_t * stateData, uint64_t * voteCounts, size_t nStates)[0m
+[32mfound function void printLargestWin(state_t * stateData, uint64_t * voteCounts, size_t nStates)[0m
+running passed-in stu_imp ./printStates
+[32mSuccessfully compiled .[0m
+checking if there is output in parseLine and countElectoralVotes
+[32mno spurious debug output in parseLine or countElectoralVotes[0m
+Overall Grade: NO GRADE YET
