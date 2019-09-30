@@ -9,32 +9,42 @@
 state_t parseLine(const char * line) {
   //STEP 1: write me
   char * p = strdup(line);
-  char * errcheck = strdup(line);
 
   //check for the empty
-  while (*errcheck != ':') {
-    if (*errcheck == '\0') {
-      printf("empty input\n");
-      exit(EXIT_FAILURE);
-    }
-    errcheck++;
+  char * errcheck = strdup(line);  //copy another string for testing
+  char * test_token;
+  int count = 0;
+
+  while ((test_token = strsep(&errcheck, ":")) != NULL) {
+    //checking if there are 3 elements
+    count++;
   }
-  errcheck++;
+  if (count < 3) {
+    printf("There are too few columns");
+    exit(EXIT_FAILURE);
+  }
+  else if (count > 3) {
+    printf("There are too many columns");
+    exit(EXIT_FAILURE);
+  }
+
   //initiate state_t
   state_t state;
-
   char *name, *cpop, *cnum;
   //separate by :
-
   name = strsep(&p, ":");
-
   cpop = strsep(&p, ":");
+  //converting population from string to int
   int pop = atoi(cpop);
-
   cnum = strsep(&p, ":");
-  size_t name_len = strlen(name);
-  int num = atoi(cnum);
 
+  size_t name_len = strlen(name);
+
+  if (name_len > MAX_STATE_NAME_LENGTH - 1) {
+    printf("The name is too long");
+    exit(EXIT_FAILURE);
+  }
+  int num = atoi(cnum);
   //copy from a pointer to array
   memcpy(state.name, name, name_len);
   state.name[name_len] = '\0';
