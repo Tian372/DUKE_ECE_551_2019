@@ -25,11 +25,11 @@ state_t parseLine(const char * line) {
     count++;
   }
   if (count < 3) {
-    printf("There are too few columns");
+    printf("There are too few columns\n");
     exit(EXIT_FAILURE);
   }
   else if (count > 3) {
-    printf("There are too many columns");
+    printf("There are too many columns\n");
     exit(EXIT_FAILURE);
   }
 
