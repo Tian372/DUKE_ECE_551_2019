@@ -9,17 +9,33 @@
 state_t parseLine(const char * line) {
   //STEP 1: write me
   char * p = strdup(line);
+  char * errcheck = strdup(line);
+
+  //check for the empty
+  while (*errcheck != ':') {
+    if (*errcheck == '\0') {
+      printf("empty input\n");
+      exit(EXIT_FAILURE);
+    }
+    errcheck++;
+  }
+  errcheck++;
+  //initiate state_t
   state_t state;
+
   char *name, *cpop, *cnum;
+  //separate by :
 
   name = strsep(&p, ":");
-  cpop = strsep(&p, ":");
-  cnum = strsep(&p, ":");
 
-  size_t name_len = strlen(name);
+  cpop = strsep(&p, ":");
   int pop = atoi(cpop);
+
+  cnum = strsep(&p, ":");
+  size_t name_len = strlen(name);
   int num = atoi(cnum);
 
+  //copy from a pointer to array
   memcpy(state.name, name, name_len);
   state.name[name_len] = '\0';
 
@@ -34,7 +50,7 @@ unsigned int countElectoralVotes(state_t * stateData,
                                  size_t nStates) {
   //STEP 2: write me
   unsigned int ev = 0;
-
+  //
   for (size_t i = 0; i < nStates; i++) {
     if (voteCounts[i] > 0.5 * stateData[i].population) {
       ev = ev + stateData[i].electoralVotes;
@@ -49,6 +65,7 @@ void printRecounts(state_t * stateData, uint64_t * voteCounts, size_t nStates) {
   double percent = 0;
   double pop = 0;
   double vc = 0;
+
   for (size_t i = 0; i < nStates; i++) {
     if (voteCounts[i] > 0.495 * stateData[i].population &&
         voteCounts[i] < 0.505 * stateData[i].population) {
