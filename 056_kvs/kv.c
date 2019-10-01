@@ -4,6 +4,29 @@
 #include <stdlib.h>
 #include <string.h>
 
+void parseLine(const char * line, size_t len, kvpair_t * pair) {
+  int flag = 0;
+  int len1 = 0;
+  int len2 = 0;
+
+  for (size_t i = 0; i < len - 1; i++) {
+    if (line[i] == '=' && flag == 0) {
+      flag = 1;
+    }
+    else {
+      if (flag == 0) {
+        len1++;
+        pair->key = realloc(pair->key, (i + 1) * sizeof(*pair->key));
+        pair->key[i] = line[i];
+      }
+      if (flag == 1) {
+        len2++;
+        pair->value = realloc(pair->value, (len2) * sizeof(*pair->key));
+        pair->value[len2 - 1] = line[i];
+      }
+    }
+  }
+}
 kvarray_t * readKVs(const char * fkey) {
   //WRITE ME
   FILE * f = fopen(fkey, "r");
@@ -15,39 +38,15 @@ kvarray_t * readKVs(const char * fkey) {
   arr->pairs[arr->n].value = NULL;
   char * line = NULL;
   size_t sz = 0;
-  ssize_t len = 1;
-  int flag = 0;
-  int len1 = 0;
-  int len2 = 0;
+  ssize_t len = 0;
 
   while ((len = getline(&line, &sz, f)) >= 0) {
-    len1 = 0;
-    len2 = 0;
-    flag = 0;
-
-    for (int i = 0; i < len - 1; i++) {
-      if (line[i] == '=' && flag == 0) {
-        flag = 1;
-      }
-      else {
-        if (flag == 0) {
-          len1++;
-          arr->pairs[arr->n].key =
-              realloc(arr->pairs[arr->n].key, (i + 1) * sizeof(char));
-          arr->pairs[arr->n].key[i] = line[i];
-        }
-        if (flag == 1) {
-          len2++;
-          arr->pairs[arr->n].value =
-              realloc(arr->pairs[arr->n].value, (len2) * sizeof(char));
-          arr->pairs[arr->n].value[len2 - 1] = line[i];
-        }
-      }
-    }
+    parseLine(line, len, &arr->pairs[arr->n]);
     arr->n++;
     arr->pairs = realloc(arr->pairs, (arr->n + 1) * sizeof(*arr->pairs));
   }
-
+  free(line);
+  fclose(f);
   return arr;
 }
 
@@ -81,10 +80,13 @@ int checkEqual(const char * str1, const char * str2) {
 }
 char * lookupValue(kvarray_t * pairs, const char * key) {
   //WRITE ME
-  for (size_t i = 0; i <= pairs->n - 1; i++) {
-    if (checkEqual(pairs->pairs[i].key, key)) {
-      char * out = strdup(pairs->pairs[i].value);
-      return out;
+  size_t i;
+  kvpair_t * p;
+
+  for (i = 0; i < pairs->n; i++) {
+    p = &pairs->pairs[i];
+    if (!strcmp(key, p->key)) {
+      return p->value;
     }
   }
   return NULL;
