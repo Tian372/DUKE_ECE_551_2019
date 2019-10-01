@@ -4,36 +4,66 @@
 #include <stdlib.h>
 #include <string.h>
 
-void parseLine(kvpair_t * pair, const char * line) {
+static void errorExit(void) {
+  perror("kv");
+  exit(EXIT_FAILURE);
+}
+
+static void parseLine(kvpair_t * pair, const char * line) {
   const char *p, *q;
+
   p = strchr(line, '=');
+  if (p == NULL) {
+    goto fail;
+  }
 
   pair->key = strndup(line, (size_t)(p - line));
   q = strchr(++p, '\n');
-
+  if (q == NULL) {
+    goto fail;
+  }
   pair->value = strndup(p, (size_t)(q - p));
+  if (pair->key == NULL || pair->value == NULL) {
+    goto fail;
+  }
+  return;
+fail:
+  fprintf(stderr, "invalid input format\n");
+  exit(EXIT_FAILURE);
 }
 
 kvarray_t * readKVs(const char * fname) {
   FILE * f;
   char * line = NULL;
   size_t linesz = 0;
-  kvpair_t * pair = 0;
-  size_t n = 0;
+  kvpair_t * pairs = 0;
+  size_t npairs = 0;
   kvarray_t * arr;
 
   f = fopen(fname, "r");
+  if (f == NULL) {
+    errorExit();
+  }
+
   while (getline(&line, &linesz, f) != -1) {
-    pair = realloc(pair, (n + 1) * sizeof *pair);
-    parseLine(&pair[n++], line);
+    pairs = realloc(pairs, (npairs + 1) * sizeof *pairs);
+    if (pairs == NULL) {
+      errorExit();
+    }
+    parseLine(&pairs[npairs++], line);
+  }
+  if (!feof(f)) {
+    errorExit();
   }
   free(line);
   fclose(f);
 
   arr = malloc(sizeof *arr);
-
-  arr->pairs = pair;
-  arr->n = n;
+  if (arr == NULL) {
+    errorExit();
+  }
+  arr->pairs = pairs;
+  arr->n = npairs;
   return arr;
 }
 
