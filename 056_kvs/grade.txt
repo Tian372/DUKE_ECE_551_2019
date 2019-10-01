@@ -1,0 +1,15 @@
+Grading at 10/01/2019:21:19:46.318372
+For commit ID c483d9cd8622d6331c3adfed94f231f2d889b306
+Grading at Tue Oct  1 17:19:44 EDT 2019
+Attempting to compile:
+#################################################
+testcase1:
+valgrind reported memory errors
+#################################################
+testcase2:
+valgrind reported memory errors
+#################################################
+testcase3:
+valgrind reported memory errors
+
+Overall Grade: F
