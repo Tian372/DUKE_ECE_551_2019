@@ -40,8 +40,8 @@ int main(int argc, char ** argv) {
   kvarray_t * kv;
   int i;
   //count from 2 to argc (call the number you count i)
-  if (argc <= 1) {
-    fprintf(stderr, "need at least one argument\n");
+  if (argc < 3) {
+    fprintf(stderr, "need at least three argument\n");
     exit(EXIT_FAILURE);
   }
   kv = readKVs(argv[1]);
@@ -68,7 +68,7 @@ int main(int argc, char ** argv) {
     free(outName);
     //free the memory for kv
     freeCounts(c);
-
-    return EXIT_SUCCESS;
   }
+  freeKVs(kv);
+  return EXIT_SUCCESS;
 }
