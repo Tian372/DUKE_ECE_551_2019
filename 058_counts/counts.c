@@ -5,12 +5,11 @@
 #include <string.h>
 counts_t * createCounts(void) {
   //WRITE ME
-  printf("initialize count");
   counts_t * out = malloc(sizeof(*out));
   out->array = NULL;
   out->sz = 0;
   out->unknowns = 0;
-  printf("Finish initializing. size = 0");
+
   return out;
 }
 void addCount(counts_t * c, const char * name) {
