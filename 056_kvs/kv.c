@@ -36,7 +36,7 @@ kvarray_t * readKVs(const char * fname) {
   FILE * f;
   char * line = NULL;
   size_t linesz = 0;
-  kvpair_t * pairs = 0;
+  kvpair_t * base = 0;
   size_t npairs = 0;
   kvarray_t * arr;
 
@@ -46,11 +46,11 @@ kvarray_t * readKVs(const char * fname) {
   }
 
   while (getline(&line, &linesz, f) != -1) {
-    pairs = realloc(pairs, (npairs + 1) * sizeof *pairs);
-    if (pairs == NULL) {
+    base = realloc(base, (npairs + 1) * sizeof *base);
+    if (base == NULL) {
       errorExit();
     }
-    parseLine(&pairs[npairs++], line);
+    parseLine(&base[npairs++], line);
   }
   if (!feof(f)) {
     errorExit();
@@ -62,21 +62,23 @@ kvarray_t * readKVs(const char * fname) {
   if (arr == NULL) {
     errorExit();
   }
-  arr->pairs = pairs;
+  arr->pairs = base;
   arr->n = npairs;
   return arr;
 }
 
 void freeKVs(kvarray_t * pairs) {
-  for (size_t i = 0; i <= pairs->n - 1; i++) {
+  size_t i;
+
+  for (i = 0; i < pairs->n; i++) {
     free(pairs->pairs[i].key);
     free(pairs->pairs[i].value);
   }
   free(pairs->pairs);
   free(pairs);
 }
+
 void printKVs(kvarray_t * pairs) {
-  //WRITE ME
   size_t i;
   kvpair_t * p;
 
@@ -87,13 +89,12 @@ void printKVs(kvarray_t * pairs) {
 }
 
 char * lookupValue(kvarray_t * pairs, const char * key) {
-  //WRITE ME
   size_t i;
   kvpair_t * p;
 
   for (i = 0; i < pairs->n; i++) {
     p = &pairs->pairs[i];
-    if (!strcmp(key, p->key)) {
+    if (strcmp(key, p->key) == 0) {
       return p->value;
     }
   }
