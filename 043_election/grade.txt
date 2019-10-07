@@ -1,12 +1,90 @@
-Grading at 09/30/2019:17:23:51.879174
+Grading at 10/07/2019:19:19:24.343992
 For commit ID a3c2c903977b990ec634dc42bc000a8612312add
-Grading at Mon Sep 30 13:23:51 EDT 2019
-[32mfound function state_t  parseLine(const char * line)[0m
-[32mfound function unsigned int countElectoralVotes(state_t * stateData, uint64_t * voteCounts, size_t   nStates)[0m
-[32mfound function void printRecounts(state_t * stateData, uint64_t * voteCounts, size_t nStates)[0m
-[32mfound function void printLargestWin(state_t * stateData, uint64_t * voteCounts, size_t nStates)[0m
-running passed-in stu_imp ./printStates
-[32mSuccessfully compiled .[0m
-checking if there is output in parseLine and countElectoralVotes
-[32mno spurious debug output in parseLine or countElectoralVotes[0m
-Overall Grade: NO GRADE YET
+Grading at Mon Oct  7 15:19:04 EDT 2019
+election.c exists (good)
+Attempting to compile election.c
+rm -f *~ printStates printEVotes printRecounts printLargeWin
+gcc -ggdb3 -Wall -Werror -std=gnu99 election.c printStates.o -o printStates
+gcc -ggdb3 -Wall -Werror -std=gnu99 election.c printEVotes.o -o printEVotes
+gcc -ggdb3 -Wall -Werror -std=gnu99 election.c printRecounts.o -o printRecounts
+gcc -ggdb3 -Wall -Werror -std=gnu99 election.c printLargeWin.o -o printLargeWin
+#################################################
+testcase1 of step1:
+testcase1 passed [1/1]
+#################################################
+testcase2 of step1:
+testcase2 passed [1/1]
+#################################################
+testcase3 of step1:
+testcase3 passed [1/1]
+#################################################
+testcase4 of step1:
+testcase4 passed [1/1]
+#################################################
+testcase5 of step1:
+Your file matched the expected output
+testcase5 passed [10/10]
+#################################################
+testcase6 of step1:
+Difficult corner cases
+Line_52_did_not_match
+Line_53_did_not_match
+Line_54_did_not_match
+Line_55_did_not_match
+Your file did not match the expected ouput
+testcase6 failed, your output did not match with the answer [0/6]
+#################################################
+testcase1 of step2:
+Your output is correct [8/8]
+#################################################
+testcase2 of step2:
+Your output is correct [8/8]
+#################################################
+testcase3 of step2:
+Your output is correct [8/8]
+#################################################
+testcase4 of step2:
+Difficult corner cases
+Your output is correct [6/6]
+#################################################
+testcase1 of step3:
+Your output is correct [6/6]
+#################################################
+testcase2 of step3:
+Your output is correct [6/6]
+#################################################
+testcase3 of step3:
+Your output is correct [6/6]
+#################################################
+testcase4 of step3:
+Difficult corner cases
+Your output is correct [2/2]
+#################################################
+testcase1 of step4:
+Your output is correct [8/8]
+#################################################
+testcase2 of step4:
+Your output is correct [8/8]
+#################################################
+testcase3 of step4:
+Your output is correct [8/8]
+#################################################
+testcase4 of step4:
+Difficult corner cases
+Your output is correct [6/6]
+-----------------------------------
+Functionality:  94 points / 100
+------------------------------------
+Code quality:
+ - Format:      3 / 3
+ - Comments:    2 / 3
+ - Abstraction: 0 / 2
+ - Other:       2 / 2
+ Notes from your TA (Runren):
+No comments for each function signature (-1); No abstraction (-2);
+------------------------------
+Total quality:   7 / 10
+------------------------------
+Overall grade = functionality *0.9 + quality
+
+Overall Grade: 91.6
