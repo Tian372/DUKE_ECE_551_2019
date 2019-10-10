@@ -19,7 +19,7 @@ double Vector2D::getMagnitude() const {
 Vector2D Vector2D::operator+(const Vector2D & rhs) const {
   Vector2D sum;
   sum.x = x + rhs.x;
-  sum.y = y + rhs.x;
+  sum.y = y + rhs.y;
   return sum;
 }
 Vector2D & Vector2D::operator+=(const Vector2D & rhs) {
