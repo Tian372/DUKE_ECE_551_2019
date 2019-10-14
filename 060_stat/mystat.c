@@ -18,7 +18,7 @@ char * time2str(const time_t * when, long ns) {
   snprintf(ans, 128, "%s.%09ld %s", temp1, ns, temp2);
   return ans;
 }
-void printfiletype(struct stat status) {
+void printFiletype(struct stat status) {
   const char * filetype = NULL;
   switch (status.st_mode & S_IFMT) {
     case S_IFBLK:
@@ -157,7 +157,35 @@ void printAccess(struct stat status) {
       acc[9] = 'x';
       break;
   }
-  printf("Access: (%04o/%s)\n", status.st_mode & ~S_IFMT, acc);
+  printf("Access: (%04o/%s)", status.st_mode & ~S_IFMT, acc);
+  //step3
+  struct passwd * uid = getpwuid(status.st_uid);
+  if (uid == NULL) {
+    fprintf(stderr, "can not find user name\n");
+    exit(EXIT_FAILURE);
+  }
+  char * username = uid->pw_name;
+  struct group * gid = getgrgid(status.st_gid);
+  if (gid == NULL) {
+    fprintf(stderr, "can not find group name\n");
+    exit(EXIT_FAILURE);
+  }
+  char * groupname = gid->gr_name;
+  printf("  Uid: (%5d/%8s)   Gid: (%5d/%8s)\n",
+         status.st_uid,
+         username,
+         status.st_gid,
+         groupname);
+}
+
+void printAMCB(struct stat status) {
+  char * at = time2str(&status.st_atime, status.st_atim.tv_nsec);
+  char * mt = time2str(&status.st_mtime, status.st_mtim.tv_nsec);
+  char * ct = time2str(&status.st_ctime, status.st_ctim.tv_nsec);
+  printf("Access: %s\n", at);
+  printf("Modify: %s\n", mt);
+  printf("Change: %s\n", ct);
+  printf(" Birth: -\n");
 }
 int main(int argc, char * argv[]) {
   struct stat status;
@@ -181,9 +209,9 @@ int main(int argc, char * argv[]) {
   const char * file = argv[1];
   printf("  File: '%s'\n", file);
 
-  printfiletype(status);
+  printFiletype(status);
   printLinks(status);
   printAccess(status);
-
+  printAMCB(status);
   return EXIT_SUCCESS;
 }
