@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
+
 //This function is for Step 4
 char * time2str(const time_t * when, long ns) {
   char * ans = malloc(128 * sizeof(*ans));
@@ -18,8 +19,10 @@ char * time2str(const time_t * when, long ns) {
   snprintf(ans, 128, "%s.%09ld %s", temp1, ns, temp2);
   return ans;
 }
+
 void printFiletype(struct stat status) {
-  const char * filetype = NULL;
+  char * filetype = NULL;
+
   switch (status.st_mode & S_IFMT) {
     case S_IFBLK:
       filetype = "block special file";
@@ -186,32 +189,36 @@ void printAMCB(struct stat status) {
   printf("Modify: %s\n", mt);
   printf("Change: %s\n", ct);
   printf(" Birth: -\n");
+  free(at);
+  free(mt);
+  free(ct);
 }
+
 int main(int argc, char * argv[]) {
   struct stat status;
 
-  if (argc != 2) {
-    fprintf(stderr, "Usage: %s <pathname>\n", argv[0]);
-    exit(EXIT_FAILURE);
-  }
-  if (argc > 2) {
-    printf("too many arguments");
-    exit(EXIT_FAILURE);
-  }
-  if ((argv[1]) == NULL) {
-    return EXIT_FAILURE;
-  }
-  if (stat(argv[1], &status) == -1) {
-    perror("stat");
-    exit(EXIT_FAILURE);
-  }
+  for (int i = 1; i < argc; i++) {
+    if (stat(argv[i], &status) == -1) {
+      perror("stat");
+      exit(EXIT_FAILURE);
+    }
 
-  const char * file = argv[1];
-  printf("  File: '%s'\n", file);
+    /* if (S_ISLNK(status.st_mode)) {*/
 
-  printFiletype(status);
-  printLinks(status);
-  printAccess(status);
-  printAMCB(status);
+    if ((status.st_mode & S_IFMT) == S_IFLNK) {
+      char linktarget[256];
+      ssize_t len = readlink(argv[i], linktarget, 256);
+      linktarget[len] = '\0';
+      printf("  File: %s -> %s\n", argv[i], linktarget);
+    }
+    else {
+      printf("  File: %s\n", argv[i]);
+    }
+
+    printFiletype(status);
+    printLinks(status);
+    printAccess(status);
+    printAMCB(status);
+  }
   return EXIT_SUCCESS;
 }
