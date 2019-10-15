@@ -17,4 +17,6 @@ class Vector2D {
 
   double dot(const Vector2D & rhs) const;
   void print();
+  Vector2D() : x(0.00), y(0.00) {}
+  Vector2D(double ix, double iy) : x(ix), y(iy){};
 };
