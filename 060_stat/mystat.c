@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <sys/sysmacros.h>
 #include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
@@ -22,6 +23,14 @@ char * time2str(const time_t * when, long ns) {
 
 void printFiletype(struct stat status) {
   char * filetype = NULL;
+  /*    S_IFBLK  -> "block special file"
+	S_IFCHR  -> "character special file"
+	S_IFDIR  -> "directory"
+	S_IFIFO  -> "fifo"
+	S_IFLNK  -> "symbolic link"
+	S_IFREG  -> "regular file"
+	S_IFSOCK -> "socket"
+  */
 
   switch (status.st_mode & S_IFMT) {
     case S_IFBLK:
@@ -36,18 +45,19 @@ void printFiletype(struct stat status) {
     case S_IFIFO:
       filetype = "fifo";
       break;
+    case S_IFREG:
+      filetype = "regular file";
     case S_IFLNK:
       filetype = "symbolic link";
       break;
-    case S_IFREG:
-      filetype = "regular file";
-      break;
     case S_IFSOCK:
       filetype = "socket";
+      break;
     default:
       filetype = "unknown?";
       break;
   }
+
   printf("  Size: %-10lu\tBlocks: %-10lu IO Block: %-6lu %s\n",
          status.st_size,
          status.st_blocks,
@@ -56,15 +66,54 @@ void printFiletype(struct stat status) {
 }
 
 void printLinks(struct stat status) {
-  printf("Device: %lxh/%lud\tInode: %-10lu  Links: %lu\n",
-         status.st_dev,
-         status.st_dev,
-         status.st_ino,
-         status.st_nlink);
+  if (S_ISCHR(status.st_mode) || S_ISBLK(status.st_mode)) {
+    printf("Device: %lxh/%lud\tInode: %-10lu  Links: %-5lu Device type: %d,%d\n",
+           status.st_dev,
+           status.st_dev,
+           status.st_ino,
+           status.st_nlink,
+           major(status.st_rdev),
+           minor(status.st_rdev));
+  }
+  else {
+    printf("Device: %lxh/%lud\tInode: %-10lu  Links: %lu\n",
+           status.st_dev,
+           status.st_dev,
+           status.st_ino,
+           status.st_nlink);
+  }
 }
 
 void printAccess(struct stat status) {
-  char acc[10] = {0};
+  char acc[10] = {"----------"};
+  /*
+  (1) The permissions in octal.  These come from st_mode & ~S_IFMT.
+      (That is, all the bits of st_mode except the ones for the file
+       type).
+  (2) The human readable description of the permissions (plus
+      one character for file type).  This string always has 10 characters:
+
+        - The first is either 'b','c', 'd', 'p', 'l', '-', or 's' depending 
+          on the file type (corresponding to S_IFBLK, S_IFCHR, S_IFDIR, S_IFIFO, 
+          S_IFLNK, S_IFREG, S_IFSOCK in that order)
+        - The second is either 'r' or '-' depending on if the file
+          is readable by the owner.   To figure this out, 
+          look at st_mode & S_IRUSR.  If that value is non-zero,
+          the owner has read permission, and you should put 'r' here.
+          Otherwise, the owner cannot read it, and you should put '-' here.
+        - The third is either 'w' or '-' depending on if the file
+          is writeable able by the owner.  This is similar to the
+          previous, but the bit to check is S_IWUSR.
+        - The fourth is either 'x' or '-' depending on if the
+          file is executable by the owner (S_IXUSR)
+        - The next three (5,6,7) are similar to the previous
+          three, but for the group rather than the owner.
+          They will be r/-, w/-, and x/- based on 
+          S_IRGRP, S_IWGRP, and S_IXGRP respectively.
+        - The next three (8,9,10) follow the same pattern,
+          but with S_IROTH, S_IWOTH, and S_IXOTH  (for "other"
+          instead of user/group).
+  */
   switch (status.st_mode & S_IFMT) {
     case S_IFBLK:
       acc[0] = 'b';
@@ -161,16 +210,34 @@ void printAccess(struct stat status) {
       break;
   }
   printf("Access: (%04o/%s)", status.st_mode & ~S_IFMT, acc);
+
   //step3
+  /*
+  (3) The user ID of the owner, as a number.
+  (4) This string is the name of the owner.  You will need to use
+
+          struct passwd *getpwuid(uid_t uid);
+ 
+      to look up the user's name from their uid.  See "man getpwuid"
+      for information about "struct passwd", so you can find out
+      how to get the user name out of it.
+  (5) The group ID of the owning group, as a number.
+  (6) This string is the group name of the owning group.  You will need to
+      use
+
+          struct group *getgrgid(gid_t gid);
+  */
+
   struct passwd * uid = getpwuid(status.st_uid);
   if (uid == NULL) {
-    fprintf(stderr, "can not find user name\n");
+    fprintf(stderr, "No user name is found\n");
     exit(EXIT_FAILURE);
   }
   char * username = uid->pw_name;
+
   struct group * gid = getgrgid(status.st_gid);
   if (gid == NULL) {
-    fprintf(stderr, "can not find group name\n");
+    fprintf(stderr, "No group name is found\n");
     exit(EXIT_FAILURE);
   }
   char * groupname = gid->gr_name;
@@ -196,16 +263,14 @@ void printAMCB(struct stat status) {
 
 int main(int argc, char * argv[]) {
   struct stat status;
-
+  //loop for multiple arguments
   for (int i = 1; i < argc; i++) {
     if (lstat(argv[i], &status) == -1) {
       perror("stat");
       exit(EXIT_FAILURE);
     }
-
-    /* if (S_ISLNK(status.st_mode)) {*/
-
-    if ((status.st_mode & S_IFMT) == S_IFLNK) {
+    //test to see if file is sym link
+    if (S_ISLNK(status.st_mode)) {
       char linktarget[256];
       ssize_t len = readlink(argv[i], linktarget, 256);
       linktarget[len] = '\0';
