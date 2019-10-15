@@ -198,7 +198,7 @@ int main(int argc, char * argv[]) {
   struct stat status;
 
   for (int i = 1; i < argc; i++) {
-    if (stat(argv[i], &status) == -1) {
+    if (lstat(argv[i], &status) == -1) {
       perror("stat");
       exit(EXIT_FAILURE);
     }
