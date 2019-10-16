@@ -21,6 +21,7 @@ char * time2str(const time_t * when, long ns) {
   return ans;
 }
 
+//This function is used to print the second line
 void printFiletype(struct stat status) {
   char * filetype = NULL;
   /*    S_IFBLK  -> "block special file"
@@ -47,6 +48,7 @@ void printFiletype(struct stat status) {
       break;
     case S_IFREG:
       filetype = "regular file";
+      break;
     case S_IFLNK:
       filetype = "symbolic link";
       break;
@@ -64,7 +66,7 @@ void printFiletype(struct stat status) {
          status.st_blksize,
          filetype);
 }
-
+//This function is used to print the third line
 void printLinks(struct stat status) {
   if (S_ISCHR(status.st_mode) || S_ISBLK(status.st_mode)) {
     printf("Device: %lxh/%lud\tInode: %-10lu  Links: %-5lu Device type: %d,%d\n",
@@ -83,7 +85,7 @@ void printLinks(struct stat status) {
            status.st_nlink);
   }
 }
-
+//This function is used to printe the forth line
 void printAccess(struct stat status) {
   char acc[10] = {"----------"};
   /*
@@ -230,24 +232,25 @@ void printAccess(struct stat status) {
 
   struct passwd * uid = getpwuid(status.st_uid);
   if (uid == NULL) {
-    fprintf(stderr, "No user name is found\n");
+    printf("User ID is not found");
     exit(EXIT_FAILURE);
   }
   char * username = uid->pw_name;
 
   struct group * gid = getgrgid(status.st_gid);
   if (gid == NULL) {
-    fprintf(stderr, "No group name is found\n");
+    printf("Group ID is not found");
     exit(EXIT_FAILURE);
   }
   char * groupname = gid->gr_name;
+
   printf("  Uid: (%5d/%8s)   Gid: (%5d/%8s)\n",
          status.st_uid,
          username,
          status.st_gid,
          groupname);
 }
-
+//this function is used to print the 5th 6th 7th 8th (last 4 lines)
 void printAMCB(struct stat status) {
   char * at = time2str(&status.st_atime, status.st_atim.tv_nsec);
   char * mt = time2str(&status.st_mtime, status.st_mtim.tv_nsec);
@@ -269,20 +272,25 @@ int main(int argc, char * argv[]) {
       perror("stat");
       exit(EXIT_FAILURE);
     }
-    //test to see if file is sym link
+    //check if file is sym link
     if (S_ISLNK(status.st_mode)) {
       char linktarget[256];
       ssize_t len = readlink(argv[i], linktarget, 256);
       linktarget[len] = '\0';
+      //print the first line
       printf("  File: %s -> %s\n", argv[i], linktarget);
     }
     else {
+      //print the first line
       printf("  File: %s\n", argv[i]);
     }
-
+    //2nd line
     printFiletype(status);
+    //3rd line
     printLinks(status);
+    //4th line
     printAccess(status);
+    //5th 6th 7th 8th line
     printAMCB(status);
   }
   return EXIT_SUCCESS;
