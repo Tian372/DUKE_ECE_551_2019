@@ -1,0 +1,16 @@
+#include <cmath>
+#include <cstdio>
+/* write your class interface in this file
+   write function definitions only if they are very short
+ */
+
+class Point {
+ private:
+  double x;
+  double y;
+
+ public:
+  Point() : x(0.00), y(0.00){};
+  void move(double dx, double dy);
+  double distanceFrom(const Point & p);
+};
