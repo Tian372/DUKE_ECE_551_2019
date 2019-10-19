@@ -53,8 +53,9 @@ bool IntArray::operator==(const IntArray & rhs) const {
         return false;
       }
     }
+    return true;
   }
-  return true;
+  return false;
 }
 bool IntArray::operator!=(const IntArray & rhs) const {
   return !((*this) == rhs);
