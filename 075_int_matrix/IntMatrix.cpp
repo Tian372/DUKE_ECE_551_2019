@@ -24,7 +24,8 @@ IntMatrix::~IntMatrix() {
 
 IntMatrix & IntMatrix::operator=(const IntMatrix & rhs) {
   if (this != &rhs) {
-    IntArray ** temp = new IntArray *[rhs.numRows];
+    IntArray ** temp = new IntArray *[rhs.getRows()];
+
     for (int i = 0; i < rhs.numRows; i++) {
       temp[i] = new IntArray(rhs[i]);
     }
