@@ -8,9 +8,7 @@ int main(int argc, char ** argv) {
   std::string strings;
 
   std::vector<std::string> str;
-  if (argc < 1) {
-    exit(EXIT_FAILURE);
-  }
+
   if (argc == 1) {
     while (!std::cin.eof()) {
       std::getline(std::cin, strings);
@@ -27,7 +25,7 @@ int main(int argc, char ** argv) {
     }
   }
 
-  else {
+  else if (argc > 1) {
     for (int i = 1; i < argc; i++) {
       read.open(argv[i]);
       if (read.fail()) {
@@ -47,6 +45,9 @@ int main(int argc, char ** argv) {
       str.clear();
       read.close();
     }
+  }
+  else {
+    exit(EXIT_FAILURE);
   }
 
   return EXIT_SUCCESS;
