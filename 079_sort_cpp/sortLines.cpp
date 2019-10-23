@@ -8,7 +8,9 @@ int main(int argc, char ** argv) {
   std::string strings;
 
   std::vector<std::string> str;
-
+  if (argc < 1) {
+    exit(EXIT_FAILURE);
+  }
   if (argc == 1) {
     while (!std::cin.eof()) {
       std::getline(std::cin, strings);
