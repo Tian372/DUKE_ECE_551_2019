@@ -4,7 +4,7 @@
 #include <vector>
 
 int main(int argc, char ** argv) {
-  std::ifstream f;
+  std::ifstream read;
   std::string strings;
 
   std::vector<std::string> str;
@@ -27,12 +27,12 @@ int main(int argc, char ** argv) {
 
   else {
     for (int i = 1; i < argc; i++) {
-      f.open(argv[i]);
-      if (f.fail()) {
+      read.open(argv[i]);
+      if (read.fail()) {
         exit(EXIT_FAILURE);
       }
-      while (!f.eof()) {
-        std::getline(f, strings);
+      while (!read.eof()) {
+        std::getline(read, strings);
         str.push_back(strings);
       }
 
@@ -43,7 +43,7 @@ int main(int argc, char ** argv) {
       }
 
       str.clear();
-      f.close();
+      read.close();
     }
   }
 
