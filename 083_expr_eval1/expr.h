@@ -1,5 +1,4 @@
-#include <ctype.h>
-#include <stdio.h>
+
 #include <string.h>
 
 #include <cstdlib>
@@ -7,35 +6,42 @@
 #include <sstream>
 
 class Expression {
- protected:
-  std::string str;
-
  public:
+  Expression() {}
   virtual std::string toString() const = 0;
-  std::string getstr() { return str; }
   virtual ~Expression() {}
 };
 
 class NumExpression : public Expression {
- public:
-  NumExpression(long i) {
-    std::stringstream s;
-    s << i;
-    str = s.str();
-  }
+ private:
+  long x;
 
-  std::string toString() const { return str; }
+ public:
+  NumExpression(long i) : x(i) {}
+
+  virtual std::string toString() const {
+    std::stringstream s;
+    s << x;
+    return s.str();
+  }
   virtual ~NumExpression() {}
 };
 
 class PlusExpression : public Expression {
- public:
-  PlusExpression(Expression * lhs, Expression * rhs) {
-    std::stringstream s;
-    s << "(" << lhs->getstr() << " + " << rhs->getstr() << ")";
-    str = s.str();
-  };
+ private:
+  Expression * exp1;
+  Expression * exp2;
 
-  std::string toString() const { return str; }
-  virtual ~PlusExpression() {}
+ public:
+  PlusExpression(Expression * lhs, Expression * rhs) : exp1(lhs), exp2(rhs){};
+
+  virtual std::string toString() const {
+    std::stringstream s;
+    s << "(" << exp1->toString() << " + " << exp2->toString() << ")";
+    return s.str();
+  }
+  virtual ~PlusExpression() {
+    delete exp1;
+    delete exp2;
+  }
 };
