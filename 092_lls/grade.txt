@@ -1,0 +1,23 @@
+Grading at 11/03/2019:16:13:53.400006
+For commit ID 632b18810c70459b503d31e04403a29d47e177a4
+Grading at Sun Nov  3 11:13:50 EST 2019
+-----------------------------------------------
+testcase 1 : Testing with LinkedList<int>
+...compiling...
+The code compiled.
+  - Valgrind reported errors
+Valgrind reported errors (test failed).
+-----------------------------------------------
+testcase 2 : Testing with LinkedList<std::string>
+...compiling...
+The code compiled.
+  - Valgrind reported errors
+Valgrind reported errors (test failed).
+-----------------------------------------------
+testcase 3 : Testing with LinkedList<(a custom class we wrote)>
+...compiling...
+The code compiled.
+  - Valgrind reported errors
+Valgrind reported errors (test failed).
+
+Overall Grade: F
