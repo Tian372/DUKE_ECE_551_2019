@@ -35,7 +35,7 @@ class LinkedList {
   LinkedList(const LinkedList & rhs) : head(NULL), tail(NULL), size(0) {
     Node * temp = rhs.head;
     while (temp != NULL) {
-      this->addFront(temp->data);
+      this->addBack(temp->data);
       temp = temp->next;
     }
   }
@@ -104,6 +104,7 @@ class LinkedList {
       if (curr->next == NULL) {
         Node * currP = curr->prev;
         currP->next = NULL;
+        tail = currP;
         delete curr;
         size--;
         return true;

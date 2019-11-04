@@ -5,7 +5,7 @@
 #include "ll.h"
 
 void testList(void) {
-  LinkedList<int> L1;
+  LinkedList L1;
   assert(L1.getSize() == 0 && L1.size == 0 && L1.head == NULL && L1.tail == NULL);
   L1.addBack(11);
   assert(L1.getSize() == 1 && L1.size == 1 && L1.head == L1.tail && L1.head != NULL);
@@ -17,7 +17,7 @@ void testList(void) {
   assert(L1.head == L1.head->next->prev);
   assert(L1.tail == L1.head->next);
 
-  LinkedList<int> L2;
+  IntList L2;
   L2 = L1;
   assert(L2.getSize() == 2 && L2.size == 2);
   assert(L2[0] == 1);
@@ -26,7 +26,7 @@ void testList(void) {
   assert(L2.head == L2.head->next->prev);
   assert(L2.tail == L2.head->next);
 
-  LinkedList<int> L3(L1);
+  IntList L3(L1);
   assert(L3.getSize() == 2 && L3.size == 2);
   assert(L3[0] == 1);
   assert(L3[1] == 11);
@@ -69,30 +69,30 @@ void testList(void) {
   assert(L1.size == 7 && L1.getSize() == 7);
   assert(L1[5] == 7 && L1[6] == 8);
 
-  LinkedList<int> L4;
+  IntList L4;
   L4.addBack(1);
   L4.addBack(2);
   L4.addBack(3);
   L4.addBack(4);
 
-  LinkedList<int> L5;
+  IntList L5;
   L5.addBack(1);
   L5.addBack(2);
 
-  LinkedList<int> L6;
+  IntList L6;
   L6 = L4;
   L6 = L5;
 
   assert(L6.getSize() == L5.getSize() && L6.head->next->next == NULL);
 
-  LinkedList<int> L7;
+  IntList L7;
   assert(L7.getSize() == 0 && L7.head == NULL && L7.tail == NULL);
   for (int i = 0; i < 10; i++) {
     L7.addBack(i);
 
     L7.addFront(i);
   }
-  LinkedList<int> L8(L7);
+  IntList L8(L7);
   assert(L8.getSize() == 20);
   for (int i = 0; i < 20; i++) {
     assert(L7[i] == L8[i]);
