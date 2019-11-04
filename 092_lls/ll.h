@@ -90,7 +90,9 @@ class LinkedList {
     }
     else {
       Node * curr = head;
-      curr = curr + pos;
+      for (int k = 0; k < pos; k++) {
+        curr = curr->next;
+      }
 
       if (curr->prev == NULL && curr->next == NULL) {
         head = NULL;
@@ -100,7 +102,7 @@ class LinkedList {
         return true;
       }
       if (curr->next == NULL) {
-        Node * currP = curr - 1;
+        Node * currP = curr->prev;
         currP->next = NULL;
         delete curr;
         size--;
@@ -108,7 +110,7 @@ class LinkedList {
       }
 
       else if (curr->prev == NULL) {
-        Node * currN = curr + 1;
+        Node * currN = curr->next;
         head = currN;
         currN->prev = NULL;
         delete curr;
