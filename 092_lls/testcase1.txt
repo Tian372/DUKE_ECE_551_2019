@@ -1,3 +1,6 @@
 apple
 bee
 cat
+cat
+duke
+cat

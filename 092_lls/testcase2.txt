@@ -1,3 +1,6 @@
 apple
 bee
 banana
+date
+ebola
+friend

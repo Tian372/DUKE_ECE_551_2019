@@ -26,7 +26,7 @@ class LinkedList {
   int size;
 
   class FFF : public std::exception {
-    const char * what() { return "Item not exist"; }
+    const char * what() const throw() { return "Item not exist"; }
   };
 
  public:
