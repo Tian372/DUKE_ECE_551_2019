@@ -1,0 +1,28 @@
+Grading at 11/05/2019:01:00:54.446762
+For commit ID f40d73cba287ea55bf9bc0beaa3b8fb9082d49c2
+Grading at Mon Nov  4 20:00:54 EST 2019
+Comparing answer1.txt
+Line_1_did_not_match
+Line_3_did_not_match
+Your file did not match the expected ouput
+ answer1.txt is incorrect
+Comparing answer2.txt
+Line_1_did_not_match
+Line_3_did_not_match
+Your file did not match the expected ouput
+ answer2.txt is incorrect
+Comparing answer3.txt to one possible solution
+ (two child delete uses left, then all the way right)
+Line_1_did_not_match
+Line_2_did_not_match
+Line_3_did_not_match
+Your file did not match the expected ouput
+Comparing answer3.txt to the other possible solution
+ (two child delete uses right, then all the way left)
+Line_1_did_not_match
+Line_2_did_not_match
+Line_3_did_not_match
+Your file did not match the expected ouput
+ answer3.txt is incorrect
+
+Overall Grade: FAILED
