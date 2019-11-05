@@ -1,25 +1,20 @@
-Grading at 11/05/2019:01:42:45.550207
-For commit ID 700fc3616327b7f493cef42d3f91a984c3a0abbd
-Grading at Mon Nov  4 20:42:45 EST 2019
+Grading at 11/05/2019:01:53:06.065682
+For commit ID 141009f2c1590896654e82486d5f2bd88279a295
+Grading at Mon Nov  4 20:53:05 EST 2019
 Comparing answer1.txt
 Your file matched the expected output
  answer1.txt is correct
 Comparing answer2.txt
-Line_1_did_not_match
-Line_3_did_not_match
-Your file did not match the expected ouput
- answer2.txt is incorrect
+Your file matched the expected output
+ answer2.txt is correct
 Comparing answer3.txt to one possible solution
  (two child delete uses left, then all the way right)
 Line_1_did_not_match
-Line_2_did_not_match
 Line_3_did_not_match
 Your file did not match the expected ouput
 Comparing answer3.txt to the other possible solution
  (two child delete uses right, then all the way left)
 Line_1_did_not_match
-Line_2_did_not_match
-Line_3_did_not_match
 Your file did not match the expected ouput
  answer3.txt is incorrect
 
