@@ -1,11 +1,9 @@
-Grading at 11/05/2019:01:00:54.446762
-For commit ID f40d73cba287ea55bf9bc0beaa3b8fb9082d49c2
-Grading at Mon Nov  4 20:00:54 EST 2019
+Grading at 11/05/2019:01:42:45.550207
+For commit ID 700fc3616327b7f493cef42d3f91a984c3a0abbd
+Grading at Mon Nov  4 20:42:45 EST 2019
 Comparing answer1.txt
-Line_1_did_not_match
-Line_3_did_not_match
-Your file did not match the expected ouput
- answer1.txt is incorrect
+Your file matched the expected output
+ answer1.txt is correct
 Comparing answer2.txt
 Line_1_did_not_match
 Line_3_did_not_match
