@@ -1,0 +1,122 @@
+Grading at 11/08/2019:21:32:35.361487
+For commit ID 03d0d77714d633556c38d9563a294be2091b7028
+Grading at Fri Nov  8 16:32:33 EST 2019
+-----------------------------------------------
+testcase 1 : Testing with BstMap<int,int>
+...compiling...
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = int; V = int]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:97:31: error: passing ‘const BstMap<int, int>’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** location = whereis(key);
+                        ~~~~~~~^~~~~
+bstmap.h:70:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::whereis(const K&) [with K = int; V = int]’
+   Node ** whereis(const K & key) {
+           ^~~~~~~
+The code did not compile.  This test failed.
+-----------------------------------------------
+testcase 2 : Testing with BstMap<int,std::string>
+...compiling...
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = int; V = std::__cxx11::basic_string<char>]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:97:31: error: passing ‘const BstMap<int, std::__cxx11::basic_string<char> >’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** location = whereis(key);
+                        ~~~~~~~^~~~~
+bstmap.h:70:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::whereis(const K&) [with K = int; V = std::__cxx11::basic_string<char>]’
+   Node ** whereis(const K & key) {
+           ^~~~~~~
+The code did not compile.  This test failed.
+-----------------------------------------------
+testcase 3 : Testing with BstMap<int,(a custom class we wrote)>
+...compiling...
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = int; V = Tester]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:97:31: error: passing ‘const BstMap<int, Tester>’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** location = whereis(key);
+                        ~~~~~~~^~~~~
+bstmap.h:70:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::whereis(const K&) [with K = int; V = Tester]’
+   Node ** whereis(const K & key) {
+           ^~~~~~~
+The code did not compile.  This test failed.
+-----------------------------------------------
+testcase 4 : Testing with BstMap<std::string,int>
+...compiling...
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = std::__cxx11::basic_string<char>; V = int]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:97:31: error: passing ‘const BstMap<std::__cxx11::basic_string<char>, int>’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** location = whereis(key);
+                        ~~~~~~~^~~~~
+bstmap.h:70:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::whereis(const K&) [with K = std::__cxx11::basic_string<char>; V = int]’
+   Node ** whereis(const K & key) {
+           ^~~~~~~
+The code did not compile.  This test failed.
+-----------------------------------------------
+testcase 5 : Testing with BstMap<std::string,std::string>
+...compiling...
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = std::__cxx11::basic_string<char>; V = std::__cxx11::basic_string<char>]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:97:31: error: passing ‘const BstMap<std::__cxx11::basic_string<char>, std::__cxx11::basic_string<char> >’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** location = whereis(key);
+                        ~~~~~~~^~~~~
+bstmap.h:70:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::whereis(const K&) [with K = std::__cxx11::basic_string<char>; V = std::__cxx11::basic_string<char>]’
+   Node ** whereis(const K & key) {
+           ^~~~~~~
+The code did not compile.  This test failed.
+-----------------------------------------------
+testcase 6 : Testing with BstMap<std::string,(a custom class we wrote)>
+...compiling...
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = std::__cxx11::basic_string<char>; V = Tester]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:97:31: error: passing ‘const BstMap<std::__cxx11::basic_string<char>, Tester>’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** location = whereis(key);
+                        ~~~~~~~^~~~~
+bstmap.h:70:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::whereis(const K&) [with K = std::__cxx11::basic_string<char>; V = Tester]’
+   Node ** whereis(const K & key) {
+           ^~~~~~~
+The code did not compile.  This test failed.
+-----------------------------------------------
+testcase 7 : Testing with BstMap<(a custom class we wrote),int>
+...compiling...
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = Tester; V = int]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:97:31: error: passing ‘const BstMap<Tester, int>’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** location = whereis(key);
+                        ~~~~~~~^~~~~
+bstmap.h:70:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::whereis(const K&) [with K = Tester; V = int]’
+   Node ** whereis(const K & key) {
+           ^~~~~~~
+The code did not compile.  This test failed.
+-----------------------------------------------
+testcase 8 : Testing with BstMap<(a custom class we wrote),std::string>
+...compiling...
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = Tester; V = std::__cxx11::basic_string<char>]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:97:31: error: passing ‘const BstMap<Tester, std::__cxx11::basic_string<char> >’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** location = whereis(key);
+                        ~~~~~~~^~~~~
+bstmap.h:70:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::whereis(const K&) [with K = Tester; V = std::__cxx11::basic_string<char>]’
+   Node ** whereis(const K & key) {
+           ^~~~~~~
+The code did not compile.  This test failed.
+-----------------------------------------------
+testcase 9 : Testing with BstMap<(a custom class we wrote),(a custom class we wrote)>
+...compiling...
+In file included from 89-tester.cpp:1:0:
+bstmap.h: In instantiation of ‘const V& BstMap<K, V>::lookup(const K&) const [with K = Tester; V = Tester]’:
+89-tester.cpp:119:26:   required from here
+bstmap.h:97:31: error: passing ‘const BstMap<Tester, Tester>’ as ‘this’ argument discards qualifiers [-fpermissive]
+     Node ** location = whereis(key);
+                        ~~~~~~~^~~~~
+bstmap.h:70:11: note:   in call to ‘BstMap<K, V>::Node** BstMap<K, V>::whereis(const K&) [with K = Tester; V = Tester]’
+   Node ** whereis(const K & key) {
+           ^~~~~~~
+The code did not compile.  This test failed.
+
+Overall Grade: F
