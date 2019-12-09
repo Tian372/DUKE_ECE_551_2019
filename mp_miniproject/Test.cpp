@@ -287,7 +287,9 @@ void parseTest(string & line, map<string, Function *> & functions) {
     cout << "<test> input is empty" << endl;
     return;
   }
-
+  if (!isMatch(line)) {
+    cout << "<test> test line does not have matched ()" << endl;
+  }
   size_t bound = line.find_last_of(')');
   string result_s = line.substr(bound + 1);
   line = line.substr(0, bound + 1);
@@ -304,6 +306,7 @@ void parseTest(string & line, map<string, Function *> & functions) {
     cout << "<test> result need to be a number" << endl;
     return;
   }
+
   //(f (g 1 2) (g 2 5))
   string temp = parseWord(line);
   try {

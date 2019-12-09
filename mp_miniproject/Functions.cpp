@@ -47,9 +47,13 @@ Function::~Function() {
 }
 
 bool isNumber(string & line) {
-  char * end = 0;
-  double num = strtod(line.c_str(), &end);
-  return end != line.c_str() && *end == '\0' && num != DBL_MAX;
+  try {
+    stod(line);
+  }
+  catch (...) {
+    return false;
+  }
+  return true;
 }
 
 bool isMatch(string & line) {
