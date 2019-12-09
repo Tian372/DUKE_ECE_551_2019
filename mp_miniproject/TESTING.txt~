@@ -1,5 +1,7 @@
 file named Testing.txt is used to test program numerics
-1.define f with a correct input form
+Run ./numirics
+And all the test case are in file: Testing.txt
+1.define f with a correct input form 
 2.test f with a correct input form
 3.numint f with a correct input form //might take a long time due to recursive method used
 4.mcint f with a correct input form
@@ -12,5 +14,5 @@ file named Testing.txt is used to test program numerics
 11.define abs function using select
 12.test abs
 13.define floor and ceil function
-14.test floor and ceil 
+14.test floor and ceil  
 
