@@ -53,32 +53,21 @@ bool isNumber(string & line) {
 }
 
 bool isMatch(string & line) {
-  int left = count(line.begin(), line.end(), '(');
-  int right = count(line.begin(), line.end(), ')');
-  if (left == right) {
+  stack<char> s;
+  if (line.empty()) {
     return true;
   }
-  else {
-    return false;
-  }
-}
 
-size_t split_test(string & line) {
-  size_t len = line.size();
-  size_t count = 0;
-  int count_l = 0;
-  int count_r = 0;
-  for (size_t i = 0; i < len; i++) {
+  for (size_t i = 0; i < line.size(); ++i) {
     if (line[i] == '(') {
-      count_l++;
+      s.push(line[i]);
     }
-    if (line[i] == ')') {
-      count_r++;
-    }
-    count++;
-    if (count_l == count_r) {
-      break;
+    else if (line[i] == ')') {
+      if (s.empty()) {
+        return false;
+      }
+      s.pop();
     }
   }
-  return count;
+  return s.empty();
 }

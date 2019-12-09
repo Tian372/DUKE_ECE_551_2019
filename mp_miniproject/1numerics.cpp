@@ -19,6 +19,7 @@ int main() {
   string line;
   map<string, Function *> functions;
   ifstream file("Testing.txt");
+
   clock_t rawtime;
   rawtime = clock();
 
@@ -30,24 +31,19 @@ int main() {
       string command = parseCommand(line);
 
       if (command == "define") {
-        cout << "define: " << endl;
         parseDefine(line, functions);
       }
       else if (command == "test") {
-        cout << "test: " << endl;
         parseTest(line, functions);
       }
 
       else if (command == "numint") {
-        cout << "numint: " << endl;
         parseNumint(line, functions);
       }
       else if (command == "mcint") {
-        cout << "mcint: " << endl;
         parseMcint(line, functions);
       }
       else if (command == "max" || command == "min") {
-        cout << command << ": " << endl;
         parseGradient(command, line, functions);
       }
       else {

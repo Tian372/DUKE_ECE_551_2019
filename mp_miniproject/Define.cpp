@@ -78,6 +78,10 @@ void parseDefine(string & line, map<string, Function *> & functions) {
     cout << "cannot find =" << endl;
     return;
   }
+  if (!isMatch(line)) {
+    cout << "<define> Define line does not have matched parentheses" << endl;
+    return;
+  }
   string str1 = line.substr(0, line.find("="));
   string str2 = line.substr(line.find("=") + 1);
   //working on str1 before the =
@@ -99,7 +103,7 @@ void parseDefine(string & line, map<string, Function *> & functions) {
       id = str1_v[i];
 
       if (functions.find(id) != functions.end()) {
-        cout << "<define> function " << id << " has been defined" << endl;
+        cout << "<define> error to attempt to re-define function " << id << endl;
         return;
       }
     }

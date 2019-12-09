@@ -9,6 +9,7 @@
 #include <iostream>
 #include <map>
 #include <sstream>
+#include <stack>
 #include <string>
 #include <vector>
 using namespace std;
@@ -37,7 +38,5 @@ class Function {
 bool isNumber(string & line);
 
 bool isMatch(string & line);
-
-size_t split_test(string & line);
 
 #endif
