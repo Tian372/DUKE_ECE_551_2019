@@ -1,0 +1,10 @@
+file named Testing.txt is used to test program numerics
+1.define f with a correct input form
+2.test f with a correct input form
+3.numint f with a correct input form //might take a long time due to recursive method used
+4.mcint f with a correct input form
+5.min f with a correct input form
+
+6.define an existing function -> should give a warning 
+7.define g with a correct input form
+8.test f function using g 

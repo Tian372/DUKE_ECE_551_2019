@@ -1,0 +1,20 @@
+#ifndef __Gradient__
+#define __Gradient__
+#include <algorithm>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <map>
+#include "Define.h"
+#include "Functions.h"
+#include "Expr.h"
+#include "Test.h"
+#include "Numint.h"
+
+using namespace std;
+
+void parseGradient(string &command, string &line, map<string, Function *> & functions);
+#endif

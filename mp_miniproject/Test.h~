@@ -1,0 +1,27 @@
+#ifndef __Test__
+#define __Test__
+#include <algorithm>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <limits>
+#include <map>
+#include <sstream>
+#include <string>
+
+#include "Define.h"
+#include "Expr.h"
+#include "Functions.h"
+using namespace std;
+
+bool isValidOp(string & op);
+size_t Operands(string & op);
+
+Expression * makeExpr(string & op, Expression * lhs, Expression * rhs, Expression * e3);
+Expression * parseOp(string & id, string & fn_def, map<string, double> vars);
+Expression * parse(string & id, string & fn_def, map<string, double> vars);
+double evalFn(string & line, map<string, Function *> & functions);
+void parseTest(string & line, map<string, Function *> & functions);
+
+#endif
