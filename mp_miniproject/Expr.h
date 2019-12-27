@@ -11,17 +11,7 @@
 #include <string>
 using namespace std;
 
-//quote from 085 expr_eval3
-class logb_Invalid_Input : public std::exception {
- public:
-  logb_Invalid_Input(const string & msg) : error_msg(msg) {}
-  ~logb_Invalid_Input() {}
-
-  virtual const char * what() { return error_msg.c_str(); };
-
- private:
-  string error_msg;
-};
+// quote from 085 expr_eval3
 
 class Expression {
  public:
@@ -42,13 +32,15 @@ class NumExpression : public Expression {
 
 class PlusExpression : public Expression {
  private:
-  Expression * exp1;
-  Expression * exp2;
+  Expression* exp1;
+  Expression* exp2;
 
  public:
-  PlusExpression(Expression * lhs, Expression * rhs) : exp1(lhs), exp2(rhs){};
+  PlusExpression(Expression* lhs, Expression* rhs) : exp1(lhs), exp2(rhs){};
 
-  virtual double evaluate() const { return exp1->evaluate() + exp2->evaluate(); };
+  virtual double evaluate() const {
+    return exp1->evaluate() + exp2->evaluate();
+  };
   virtual ~PlusExpression() {
     delete exp1;
     delete exp2;
@@ -57,12 +49,14 @@ class PlusExpression : public Expression {
 
 class MinusExpression : public Expression {
  private:
-  Expression * exp1;
-  Expression * exp2;
+  Expression* exp1;
+  Expression* exp2;
 
  public:
-  MinusExpression(Expression * lhs, Expression * rhs) : exp1(lhs), exp2(rhs){};
-  virtual double evaluate() const { return exp1->evaluate() - exp2->evaluate(); };
+  MinusExpression(Expression* lhs, Expression* rhs) : exp1(lhs), exp2(rhs){};
+  virtual double evaluate() const {
+    return exp1->evaluate() - exp2->evaluate();
+  };
   virtual ~MinusExpression() {
     delete exp1;
     delete exp2;
@@ -71,12 +65,14 @@ class MinusExpression : public Expression {
 
 class TimesExpression : public Expression {
  private:
-  Expression * exp1;
-  Expression * exp2;
+  Expression* exp1;
+  Expression* exp2;
 
  public:
-  TimesExpression(Expression * lhs, Expression * rhs) : exp1(lhs), exp2(rhs){};
-  virtual double evaluate() const { return exp1->evaluate() * exp2->evaluate(); };
+  TimesExpression(Expression* lhs, Expression* rhs) : exp1(lhs), exp2(rhs){};
+  virtual double evaluate() const {
+    return exp1->evaluate() * exp2->evaluate();
+  };
   virtual ~TimesExpression() {
     delete exp1;
     delete exp2;
@@ -85,12 +81,14 @@ class TimesExpression : public Expression {
 
 class DivExpression : public Expression {
  private:
-  Expression * exp1;
-  Expression * exp2;
+  Expression* exp1;
+  Expression* exp2;
 
  public:
-  DivExpression(Expression * lhs, Expression * rhs) : exp1(lhs), exp2(rhs){};
-  virtual double evaluate() const { return exp1->evaluate() / exp2->evaluate(); }
+  DivExpression(Expression* lhs, Expression* rhs) : exp1(lhs), exp2(rhs){};
+  virtual double evaluate() const {
+    return exp1->evaluate() / exp2->evaluate();
+  }
   virtual ~DivExpression() {
     delete exp1;
     delete exp2;
@@ -98,12 +96,14 @@ class DivExpression : public Expression {
 };
 class ModExpression : public Expression {
  private:
-  Expression * exp1;
-  Expression * exp2;
+  Expression* exp1;
+  Expression* exp2;
 
  public:
-  ModExpression(Expression * lhs, Expression * rhs) : exp1(lhs), exp2(rhs){};
-  virtual double evaluate() const { return fmod(exp1->evaluate(), exp2->evaluate()); }
+  ModExpression(Expression* lhs, Expression* rhs) : exp1(lhs), exp2(rhs){};
+  virtual double evaluate() const {
+    return fmod(exp1->evaluate(), exp2->evaluate());
+  }
   virtual ~ModExpression() {
     delete exp1;
     delete exp2;
@@ -112,12 +112,14 @@ class ModExpression : public Expression {
 
 class PowExpression : public Expression {
  private:
-  Expression * exp1;
-  Expression * exp2;
+  Expression* exp1;
+  Expression* exp2;
 
  public:
-  PowExpression(Expression * lhs, Expression * rhs) : exp1(lhs), exp2(rhs){};
-  virtual double evaluate() const { return pow(exp1->evaluate(), exp2->evaluate()); }
+  PowExpression(Expression* lhs, Expression* rhs) : exp1(lhs), exp2(rhs){};
+  virtual double evaluate() const {
+    return pow(exp1->evaluate(), exp2->evaluate());
+  }
   virtual ~PowExpression() {
     delete exp1;
     delete exp2;
@@ -126,51 +128,51 @@ class PowExpression : public Expression {
 
 class SqrtExpression : public Expression {
  private:
-  Expression * exp1;
+  Expression* exp1;
 
  public:
-  SqrtExpression(Expression * lhs) : exp1(lhs) {}
+  SqrtExpression(Expression* lhs) : exp1(lhs) {}
   virtual double evaluate() const { return sqrt(exp1->evaluate()); }
   virtual ~SqrtExpression() { delete exp1; }
 };
 
 class floorExpression : public Expression {
  private:
-  Expression * exp1;
+  Expression* exp1;
 
  public:
-  floorExpression(Expression * lhs) : exp1(lhs) {}
+  floorExpression(Expression* lhs) : exp1(lhs) {}
   virtual double evaluate() const { return floor(exp1->evaluate()); }
   virtual ~floorExpression() { delete exp1; }
 };
 
 class ceilExpression : public Expression {
  private:
-  Expression * exp1;
+  Expression* exp1;
 
  public:
-  ceilExpression(Expression * lhs) : exp1(lhs) {}
+  ceilExpression(Expression* lhs) : exp1(lhs) {}
   virtual double evaluate() const { return ceil(exp1->evaluate()); }
   virtual ~ceilExpression() { delete exp1; }
 };
 
 class roundExpression : public Expression {
  private:
-  Expression * exp1;
+  Expression* exp1;
 
  public:
-  roundExpression(Expression * lhs) : exp1(lhs) {}
+  roundExpression(Expression* lhs) : exp1(lhs) {}
   virtual double evaluate() const { return round(exp1->evaluate()); }
   virtual ~roundExpression() { delete exp1; }
 };
 
 class LogbExpression : public Expression {
  private:
-  Expression * exp1;
-  Expression * exp2;
+  Expression* exp1;
+  Expression* exp2;
 
  public:
-  LogbExpression(Expression * lhs, Expression * rhs) : exp1(lhs), exp2(rhs){};
+  LogbExpression(Expression* lhs, Expression* rhs) : exp1(lhs), exp2(rhs){};
   virtual double evaluate() const {
     return log10(exp1->evaluate()) / log10(exp2->evaluate());
   }
@@ -182,20 +184,17 @@ class LogbExpression : public Expression {
 
 class selectExpression : public Expression {
  private:
-  Expression * exp1;
-  Expression * exp2;
-  Expression * exp3;
+  Expression* exp1;
+  Expression* exp2;
+  Expression* exp3;
 
  public:
-  selectExpression(Expression * lhs, Expression * rhs, Expression * e3) :
-      exp1(lhs),
-      exp2(rhs),
-      exp3(e3){};
+  selectExpression(Expression* lhs, Expression* rhs, Expression* e3)
+      : exp1(lhs), exp2(rhs), exp3(e3){};
   virtual double evaluate() const {
     if (exp1->evaluate() >= 0) {
       return exp2->evaluate();
-    }
-    else {
+    } else {
       return exp3->evaluate();
     }
   }

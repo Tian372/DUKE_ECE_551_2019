@@ -1,129 +1,92 @@
 #include "Test.h"
 using namespace std;
 
-bool isValidOp(string & op) {
+bool isValidOp(string &op) {
   trimSpace(op);
   if (op == "+") {
     return true;
-  }
-  else if (op == "-") {
+  } else if (op == "-") {
     return true;
-  }
-  else if (op == "*") {
+  } else if (op == "*") {
     return true;
-  }
-  else if (op == "/") {
+  } else if (op == "/") {
     return true;
-  }
-  else if (op == "%") {
+  } else if (op == "%") {
     return true;
-  }
-  else if (op == "sqrt") {
+  } else if (op == "sqrt") {
     return true;
-  }
-  else if (op == "pow" || op == "^") {
+  } else if (op == "pow" || op == "^") {
     return true;
-  }
-  else if (op == "floor") {
+  } else if (op == "floor") {
     return true;
-  }
-  else if (op == "ceil") {
+  } else if (op == "ceil") {
     return true;
-  }
-  else if (op == "round") {
+  } else if (op == "round") {
     return true;
-  }
-  else if (op == "logb") {
+  } else if (op == "logb") {
     return true;
-  }
-  else if (op == "select") {
+  } else if (op == "select") {
     return true;
-  }
-  else {
+  } else {
     cout << "Impossible op: " << op << "\n";
     return false;
   }
 }
-size_t Operands(string & op) {
+size_t Operands(string &op) {
   if (op == "+") {
     return 2;
-  }
-  else if (op == "-") {
+  } else if (op == "-") {
     return 2;
-  }
-  else if (op == "*") {
+  } else if (op == "*") {
     return 2;
-  }
-  else if (op == "/") {
+  } else if (op == "/") {
     return 2;
-  }
-  else if (op == "%") {
+  } else if (op == "%") {
     return 2;
-  }
-  else if (op == "sqrt") {
+  } else if (op == "sqrt") {
     return 1;
-  }
-  else if (op == "pow" || op == "^") {
+  } else if (op == "pow" || op == "^") {
     return 2;
-  }
-  else if (op == "floor") {
+  } else if (op == "floor") {
     return 1;
-  }
-  else if (op == "ceil") {
+  } else if (op == "ceil") {
     return 1;
-  }
-  else if (op == "round") {
+  } else if (op == "round") {
     return 1;
-  }
-  else if (op == "logb") {
+  } else if (op == "logb") {
     return 2;
-  }
-  else if (op == "select") {
+  } else if (op == "select") {
     return 3;
-  }
-  else {
+  } else {
     return 0;
   }
 }
-Expression * makeExpr(string & op, Expression * lhs, Expression * rhs, Expression * e3) {
+Expression *makeExpr(string &op, Expression *lhs, Expression *rhs,
+                     Expression *e3) {
   trimSpace(op);
   if (op == "+") {
     return new PlusExpression(lhs, rhs);
-  }
-  else if (op == "-") {
+  } else if (op == "-") {
     return new MinusExpression(lhs, rhs);
-  }
-  else if (op == "*") {
+  } else if (op == "*") {
     return new TimesExpression(lhs, rhs);
-  }
-  else if (op == "/") {
+  } else if (op == "/") {
     return new DivExpression(lhs, rhs);
-  }
-  else if (op == "%") {
+  } else if (op == "%") {
     return new ModExpression(lhs, rhs);
-  }
-  else if (op == "pow" || op == "^") {
+  } else if (op == "pow" || op == "^") {
     return new PowExpression(lhs, rhs);
-  }
-  else if (op == "sqrt") {
+  } else if (op == "sqrt") {
     return new SqrtExpression(lhs);
-  }
-  else if (op == "floor") {
+  } else if (op == "floor") {
     return new floorExpression(lhs);
-  }
-  else if (op == "ceil") {
+  } else if (op == "ceil") {
     return new ceilExpression(lhs);
-  }
-  else if (op == "round") {
+  } else if (op == "round") {
     return new roundExpression(lhs);
-  }
-  else if (op == "logb") {
-    if (lhs->evaluate() <= 0 || rhs->evaluate() <= 0) {
-      throw(logb_Invalid_Input("Operands for logb should be postive"));
-    }
+  } else if (op == "logb") {
     return new LogbExpression(lhs, rhs);
-  }
-  else if (op == "select") {
+  } else if (op == "select") {
     return new selectExpression(lhs, rhs, e3);
   }
 
@@ -132,18 +95,18 @@ Expression * makeExpr(string & op, Expression * lhs, Expression * rhs, Expressio
     return NULL;
   }
 }
-Expression * parseOp(string & id, string & fn_def, map<string, double> vars) {
+Expression *parseOp(string &id, string &fn_def, map<string, double> vars) {
   string op = parseWord(fn_def);
   if (!isValidOp(op)) {
     std::cerr << "Invalid op: " << op << "\n";
     return NULL;
   }
   if (Operands(op) == 2) {
-    Expression * lhs = parse(id, fn_def, vars);
+    Expression *lhs = parse(id, fn_def, vars);
     if (lhs == NULL) {
       return NULL;
     }
-    Expression * rhs = parse(id, fn_def, vars);
+    Expression *rhs = parse(id, fn_def, vars);
     if (rhs == NULL) {
       delete lhs;
       return NULL;
@@ -160,7 +123,7 @@ Expression * parseOp(string & id, string & fn_def, map<string, double> vars) {
   }
 
   else if (Operands(op) == 1) {
-    Expression * lhs = parse(id, fn_def, vars);
+    Expression *lhs = parse(id, fn_def, vars);
     if (lhs == NULL) {
       return NULL;
     }
@@ -175,16 +138,16 @@ Expression * parseOp(string & id, string & fn_def, map<string, double> vars) {
   }
 
   else if (Operands(op) == 3) {
-    Expression * e1 = parse(id, fn_def, vars);
+    Expression *e1 = parse(id, fn_def, vars);
     if (e1 == NULL) {
       return NULL;
     }
-    Expression * e2 = parse(id, fn_def, vars);
+    Expression *e2 = parse(id, fn_def, vars);
     if (e2 == NULL) {
       delete e2;
       return NULL;
     }
-    Expression * e3 = parse(id, fn_def, vars);
+    Expression *e3 = parse(id, fn_def, vars);
     if (e3 == NULL) {
       delete e3;
       return NULL;
@@ -199,14 +162,13 @@ Expression * parseOp(string & id, string & fn_def, map<string, double> vars) {
     delete e2;
     delete e3;
     return NULL;
-  }
-  else {
+  } else {
     cout << "<test> invalid operands number" << endl;
     return NULL;
   }
 }
 
-Expression * parse(string & id, string & fn_def, map<string, double> vars) {
+Expression *parse(string &id, string &fn_def, map<string, double> vars) {
   trimSpace(fn_def);
   if (fn_def.empty()) {
     std::cerr << "<test> function definition is empty" << endl;
@@ -218,26 +180,24 @@ Expression * parse(string & id, string & fn_def, map<string, double> vars) {
   if (temp == "(") {
     // (op E E)
     return parseOp(id, fn_def, vars);
-  }
-  else {
-    //number
+  } else {
+    // number
     if (isNumber(temp)) {
       double num = stod(temp);
       return new NumExpression(num);
-    }
-    else {
+    } else {
       if (vars.find(temp) != vars.end()) {
         return new NumExpression(vars[temp]);
-      }
-      else {
-        cout << "variables " << vars[temp] << " is not in function " << id << endl;
+      } else {
+        cout << "variables " << vars[temp] << " is not in function " << id
+             << endl;
         return NULL;
       }
     }
   }
 }
 
-double evalFn(string & line, map<string, Function *> & functions) {
+double evalFn(string &line, map<string, Function *> &functions) {
   string id = parseWord(line);
 
   if (functions.find(id) == functions.end()) {
@@ -245,7 +205,7 @@ double evalFn(string & line, map<string, Function *> & functions) {
     return DBL_MAX;
   }
 
-  Function * fn = functions[id];
+  Function *fn = functions[id];
   string fn_Def = fn->getFunction();
   vector<double> values;
 
@@ -253,12 +213,10 @@ double evalFn(string & line, map<string, Function *> & functions) {
     string temp = parseWord(line);
     if (temp == "(") {
       values.push_back(evalFn(line, functions));
-    }
-    else {
+    } else {
       if (isNumber(temp)) {
         values.push_back(stod(temp));
-      }
-      else {
+      } else {
         cout << "<test> there is no number for unassigned variables " << endl;
       }
     }
@@ -267,13 +225,12 @@ double evalFn(string & line, map<string, Function *> & functions) {
 
   if (values.size() == fn->NumOfVars()) {
     fn->setVars(values);
-  }
-  else {
+  } else {
     cout << "<test> too many arguments for function " << id << endl;
     return DBL_MAX;
   }
 
-  Expression * expr = parse(id, fn_Def, fn->getVars());
+  Expression *expr = parse(id, fn_Def, fn->getVars());
   double ans;
 
   ans = expr->evaluate();
@@ -282,7 +239,7 @@ double evalFn(string & line, map<string, Function *> & functions) {
   return ans;
 }
 
-void parseTest(string & line, map<string, Function *> & functions) {
+void parseTest(string &line, map<string, Function *> &functions) {
   if (line.empty()) {
     cout << "<test> input is empty" << endl;
     return;
@@ -301,36 +258,24 @@ void parseTest(string & line, map<string, Function *> & functions) {
 
   if (isNumber(result_s)) {
     result = stod(result_s);
-  }
-  else {
+  } else {
     cout << "<test> result need to be a number" << endl;
     return;
   }
 
   //(f (g 1 2) (g 2 5))
   string temp = parseWord(line);
-  try {
-    if (temp == "(") {
-      ans = evalFn(line, functions);
-    }
-    else {
-      cout << "<test> need ( to start a function evaluation" << endl;
-      return;
-    }
-  }
-  catch (logb_Invalid_Input & e) {
-    cout << e.what() << endl;
-    return;
-  }
-  catch (invalid_argument & e) {
-    cerr << e.what() << endl;
+  if (temp == "(") {
+    ans = evalFn(line, functions);
+  } else {
+    cout << "<test> need ( to start a function evaluation" << endl;
     return;
   }
 
   if (abs(ans - result) < 0.0000000000001) {
     cout << line2 << "= " << result << " [correct]" << endl;
-  }
-  else {
-    cout << line2 << " = " << result << " [INCORRECT: expected " << ans << "]" << endl;
+  } else {
+    cout << line2 << " = " << result << " [INCORRECT: expected " << ans << "]"
+         << endl;
   }
 }

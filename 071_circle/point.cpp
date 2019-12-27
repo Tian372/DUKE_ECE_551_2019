@@ -1,1 +1,18 @@
-../070_point/point.cpp
+#include "point.h"
+
+#include <cmath>
+#include <cstdio>
+
+Point::Point() : x(0.00), y(0.00) {
+}
+
+void Point::move(double dx, double dy) {
+  x += dx;
+  y += dy;
+}
+
+double Point::distanceFrom(const Point & p) {
+  double dist;
+  dist = sqrt((x - p.x) * (x - p.x) + (y - p.y) * (y - p.y));
+  return dist;
+}

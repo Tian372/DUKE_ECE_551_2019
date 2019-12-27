@@ -1,46 +1,21 @@
-file named Testing.txt is used to test program numerics
-Run ./numirics
-And all the test case are in file: Testing.txt
-1.define f with a correct input form 
-2.test f with a correct input form
-3.numint f with a correct input form //might take a long time due to recursive method used
-4.mcint f with a correct input form
-5.min f with a correct input form
-6.define an existing function -> should give a warning 
-7.define g with a correct input form
-8.test f function using g 
-9.empty input
-10.test with wrong answer form
-11.define abs function using select
-12.test abs
-13.define a floor and ceil function
-14.test floor and ceil  
-15.define a function with no variable
-16.define a function with unmatched ()
-17.define a function with unmatched ()
-18.define a function with unmatched ()
-19.define a function without (
-20.test with wrong answer form
-21.test with wrong answer form
+define (f x y) = (+ (^ x 2) (- (^ y 2) (+ (* 4 x) 1)))
+test (f 1 2)  2
+numint f 0.001 0 1 2 3
+mcint f 1000 0 1 2 3
+min f 0.1 0.0001 3 3 1000
+define (f x y z) = (+ (pow x y) z)
+define (g f k) = (logb f k)
+test (f (g 3 3) ( f 1 2))  12
 
-Corresponding output:
-1.defined f(x y)
-2.(f 1 2) = 2 [INCORRECT: expected 0]
-3.Numint: integral of f = 3.672
-4.Mcint: Integral of f = 3.66868
-5.(2, 0)
-6.<define> error to attempt to re-define function f
-7.defined g(f k)
-8.(f (g 3 3) ( f 1 2)) = 12 [INCORRECT: expected -4]
-9.input is empty
-10.<test> result need to be a number
-11.defined abs(x)
-12.(abs -2)= 2 [correct]
-13.defined fl(ke xz)
-14.(fl 1.32 4.21)= 6 [correct]
-15.<define> no variable can be found
-16.<define> Define line does not have matched parentheses
-17.<define> Define line does not have matched parentheses
-18.<define> need to start with a (
-19.<test> result need to be a number
-20.<test> result need to be a number
+test (f 1 2 ) (89)
+define (abs x) = (select x x (- 0 x))
+test (abs -2) 2
+define(fl xz ke) = (+ (floor xz) (ceil ke))
+test (fl 1.32 4.21) 6
+define (ok) = (+ 1 2)
+define (( ok) = ( )
+define (ok )) = ()
+define f = ()
+test (f 1 3 )))))))))))
+test (((((((f 2 3)
+test (f x t) 12

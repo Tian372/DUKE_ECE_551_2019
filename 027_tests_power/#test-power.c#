@@ -1,0 +1,29 @@
+#include <stdio>
+
+unsigned power (unsigned x, unsigned y);
+
+int main(void){
+  unsigned x ;
+  unsigned y ;
+
+  x = 0;
+  y = 0;
+
+  if(power(x,y)==1){
+    return EXIT_SUCCESS;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
